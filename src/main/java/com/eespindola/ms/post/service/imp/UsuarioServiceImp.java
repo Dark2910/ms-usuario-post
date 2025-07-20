@@ -1,31 +1,58 @@
 package com.eespindola.ms.post.service.imp;
 
+import com.eespindola.ms.post.dao.UsuarioDao;
+import com.eespindola.ms.post.jpa.UsuarioRepository;
+import com.eespindola.ms.post.mapper.UsuarioMapper;
+import com.eespindola.ms.post.models.UsuarioML;
+import com.eespindola.ms.post.models.dto.Result;
+import com.eespindola.ms.post.models.dto.UsuarioRequest;
 import com.eespindola.ms.post.service.UsuarioService;
+import com.eespindola.ms.post.utils.FolioUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.MessageFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.UUID;
+import java.util.Objects;
 
 @Service
 public class UsuarioServiceImp implements UsuarioService {
 
-    @Override
-    public String CrearFolioId() {
+    private final UsuarioRepository usuarioRepository;
+    private final UsuarioDao usuarioDAO;
 
-        //Long milis = System.currentTimeMillis();
-        //Date date = new Date(milis);
-
-        UUID uuid = UUID.randomUUID();
-
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String text = date.format(formatter);
-        LocalDateTime parsedDate = LocalDateTime.parse(text, formatter);
-
-        String folio = MessageFormat.format("{0}-{1}", uuid, parsedDate);
-
-        return folio;
+    @Autowired
+    public UsuarioServiceImp(
+      UsuarioRepository repository,
+      UsuarioDao dao
+    ){
+        this.usuarioRepository = repository;
+        this.usuarioDAO = dao;
     }
+
+    @Override
+    public Result<Void> agregarUsuario(Result<UsuarioRequest> request) {
+
+        Result<Void> response = new Result<>();
+        response.setFolioRequest(Objects.requireNonNullElse(request.getFolioRequest(), FolioUtil.createFolioRequest()));
+        try {
+//            UsuarioJPA usuarioJPA = UsuarioMapper.toUsuarioJPA(request.getObject());
+//            usuarioJPA.setFolio(FolioUtil.createFolioId());
+//
+//            usuarioRepository.save(usuarioJPA);
+
+            UsuarioML usuarioML = UsuarioMapper.toUsuarioML(request.getObject());
+            usuarioML.setFolioId(FolioUtil.createFolioId());
+
+            usuarioDAO.usuarioInsert(usuarioML);
+
+            response.setIsCorrect(true);
+            response.setMessage("Usuario insertado correctamente");
+        } catch (Exception e){
+            response.setIsCorrect(false);
+            response.setException(e);
+            response.setMessage(e.getMessage());
+        }
+
+        return response;
+    }
+
 }

@@ -40,6 +40,6 @@ public class UsuarioJPA {
     private String password;
 
     @Column(name = "status")
-    private String status;
+    private String status = "1";
 
 }
