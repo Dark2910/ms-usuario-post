@@ -1,7 +1,7 @@
 package com.eespindola.ms.post.dao;
 
 import com.eespindola.ms.post.models.UsuarioML;
-import com.eespindola.ms.post.utils.Result;
+import com.eespindola.ms.post.models.dto.Result;
 
 import java.sql.SQLException;
 

@@ -4,7 +4,7 @@ import com.eespindola.ms.post.dao.UsuarioDAO;
 import com.eespindola.ms.post.models.UsuarioML;
 import com.eespindola.ms.post.service.UsuarioService;
 import com.eespindola.ms.post.utils.Constantes;
-import com.eespindola.ms.post.utils.Result;
+import com.eespindola.ms.post.models.dto.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.CallableStatementCallback;
@@ -47,7 +47,7 @@ public class UsuarioImp implements UsuarioDAO {
         });
 
         if(rowAffected != null && rowAffected != 0){
-            result.isCorrect = true;
+            result.setIsCorrect(true);
         } else {
             throw new SQLException();
         }

@@ -1,7 +1,7 @@
 package com.eespindola.ms.post.controller;
 
 import com.eespindola.ms.post.dao.imp.UsuarioImp;
-import com.eespindola.ms.post.utils.Result;
+import com.eespindola.ms.post.models.dto.Result;
 import com.eespindola.ms.post.jpa.UsuarioRepository;
 import com.eespindola.ms.post.models.UsuarioML;
 import com.eespindola.ms.post.service.imp.UsuarioServiceImp;
@@ -25,7 +25,7 @@ public class UsuarioRestController {
     private UsuarioImp usuarioImp;
 
     @PostMapping("/post")
-    public Result Post(@RequestHeader(value = "folioRequest", required = false) String folioRequest, @RequestBody UsuarioML usuarioML){
+    public Result Post(@RequestHeader(value = "folioRequest", required = false) String folioRequest, @RequestBody Result<UsuarioML> usuarioML){
 
         folioRequest = (folioRequest == null || folioRequest.isEmpty() || folioRequest.isBlank())? FolioRequest.CrearFolioRequest() : folioRequest;
 
@@ -37,13 +37,14 @@ public class UsuarioRestController {
 //
 //            usuarioRepository.save(UsuarioMapper.Map(usuarioML));
 
-            result = usuarioImp.UsuarioInsert(usuarioML);
-            result.message = MessageFormat.format("Folio: {0}",folioRequest);
+            result = usuarioImp.UsuarioInsert(usuarioML.getObject());
+            result.setFolio(usuarioML.getFolio());
+            result.setIsCorrect(true);
 
         } catch (Exception e){
-            result.isCorrect = false;
-            result.exception = e;
-            result.message = e.getLocalizedMessage();
+            result.setIsCorrect(false);
+            result.setException(e);
+            result.setMessage(e.getLocalizedMessage());
         }
         return result;
     }
