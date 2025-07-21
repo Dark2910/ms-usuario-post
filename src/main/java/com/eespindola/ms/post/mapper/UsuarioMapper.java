@@ -1,8 +1,9 @@
 package com.eespindola.ms.post.mapper;
 
-import com.eespindola.ms.post.jpa.entities.UsuarioJPA;
-import com.eespindola.ms.post.models.UsuarioML;
+import com.eespindola.ms.post.jpa.entities.UsuarioJpa;
+import com.eespindola.ms.post.models.UsuarioMl;
 import com.eespindola.ms.post.models.dto.UsuarioRequest;
+import com.eespindola.ms.post.utils.ConstantesUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +11,8 @@ import java.util.Date;
 
 public class UsuarioMapper {
 
-    public static UsuarioJPA toUsuarioJPA(UsuarioRequest usuarioRequest) throws ParseException {
-        UsuarioJPA usuarioJPA = new UsuarioJPA();
+    public static UsuarioJpa toUsuarioJPA(UsuarioRequest usuarioRequest) throws ParseException {
+        UsuarioJpa usuarioJPA = new UsuarioJpa();
 
         usuarioJPA.setIdUsuario( usuarioRequest.getIdUsuario() );
         usuarioJPA.setFolio( usuarioRequest.getFolioId() );
@@ -26,14 +27,13 @@ public class UsuarioMapper {
 
         return usuarioJPA;
     }
-
     private static Date getFechaNacimiento(String fecha) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(ConstantesUtil.DATE_FORMAT);
         return simpleDateFormat.parse(fecha);
     }
 
-    public static UsuarioML toUsuarioML(UsuarioRequest usuarioRequest){
-        UsuarioML usuarioML = new UsuarioML();
+    public static UsuarioMl toUsuarioML(UsuarioRequest usuarioRequest){
+        UsuarioMl usuarioML = new UsuarioMl();
 
         usuarioML.setIdUsuario(usuarioRequest.getIdUsuario());
         usuarioML.setFolioId(usuarioRequest.getFolioId());

@@ -1,7 +1,7 @@
 package com.eespindola.ms.post.dao.imp;
 
 import com.eespindola.ms.post.dao.UsuarioDao;
-import com.eespindola.ms.post.models.UsuarioML;
+import com.eespindola.ms.post.models.UsuarioMl;
 import com.eespindola.ms.post.utils.ConstantesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +24,7 @@ public class UsuarioDaoImp implements UsuarioDao {
     }
 
     @Override
-    public void usuarioInsert(UsuarioML usuario) throws SQLException {
+    public void usuarioInsert(UsuarioMl usuario) throws SQLException {
 
         String query = ConstantesUtil.USUARIO_INSERT;
 

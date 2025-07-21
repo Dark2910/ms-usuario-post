@@ -1,12 +1,11 @@
 package com.eespindola.ms.post.models;
 
-import com.eespindola.ms.post.models.dto.UsuarioRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UsuarioML {
+public class UsuarioMl {
 
     private int idUsuario;
     private String folioId;

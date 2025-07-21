@@ -3,7 +3,7 @@ package com.eespindola.ms.post.service.imp;
 import com.eespindola.ms.post.dao.UsuarioDao;
 import com.eespindola.ms.post.jpa.UsuarioRepository;
 import com.eespindola.ms.post.mapper.UsuarioMapper;
-import com.eespindola.ms.post.models.UsuarioML;
+import com.eespindola.ms.post.models.UsuarioMl;
 import com.eespindola.ms.post.models.dto.Result;
 import com.eespindola.ms.post.models.dto.UsuarioRequest;
 import com.eespindola.ms.post.service.UsuarioService;
@@ -39,7 +39,7 @@ public class UsuarioServiceImp implements UsuarioService {
 //
 //            usuarioRepository.save(usuarioJPA);
 
-            UsuarioML usuarioML = UsuarioMapper.toUsuarioML(request.getObject());
+            UsuarioMl usuarioML = UsuarioMapper.toUsuarioML(request.getObject());
             usuarioML.setFolioId(FolioUtil.createFolioId());
 
             usuarioDAO.usuarioInsert(usuarioML);
