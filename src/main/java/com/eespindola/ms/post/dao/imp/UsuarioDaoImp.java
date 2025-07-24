@@ -2,13 +2,14 @@ package com.eespindola.ms.post.dao.imp;
 
 import com.eespindola.ms.post.dao.UsuarioDao;
 import com.eespindola.ms.post.models.UsuarioMl;
-import com.eespindola.ms.post.utils.ConstantesUtil;
+import com.eespindola.ms.post.utils.ConstantesUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Repository
@@ -18,15 +19,17 @@ public class UsuarioDaoImp implements UsuarioDao {
 
     @Autowired
     public UsuarioDaoImp(
-            @Qualifier(ConstantesUtil.HIKARI_CONNECTION) JdbcTemplate jdbc
+            @Qualifier(ConstantesUtils.HIKARI_DATA_SOURCE) DataSource dataSource
+//            @Qualifier(ConstantesUtil.HIKARI_CONNECTION) JdbcTemplate jdbc
     ){
-        this.jdbcTemplate = jdbc;
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+//        this.jdbcTemplate = jdbc;
     }
 
     @Override
     public void usuarioInsert(UsuarioMl usuario) throws SQLException {
 
-        String query = ConstantesUtil.USUARIO_INSERT;
+        String query = ConstantesUtils.USUARIO_INSERT;
 
         Integer rowAffected = jdbcTemplate.execute(query, (CallableStatementCallback<Integer>) callableStatementCallback ->{
 

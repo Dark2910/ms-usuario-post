@@ -2,8 +2,8 @@ package com.eespindola.ms.post.mapper;
 
 import com.eespindola.ms.post.jpa.entities.UsuarioJpa;
 import com.eespindola.ms.post.models.UsuarioMl;
-import com.eespindola.ms.post.models.dto.UsuarioRequest;
-import com.eespindola.ms.post.utils.ConstantesUtil;
+import com.eespindola.ms.post.models.dto.UsuarioDto;
+import com.eespindola.ms.post.utils.ConstantesUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,28 +11,28 @@ import java.util.Date;
 
 public class UsuarioMapper {
 
-    public static UsuarioJpa toUsuarioJPA(UsuarioRequest usuarioRequest) throws ParseException {
-        UsuarioJpa usuarioJPA = new UsuarioJpa();
+    public static UsuarioJpa toUsuarioJpa(UsuarioDto usuarioRequest) throws ParseException {
+        UsuarioJpa usuarioJpa = new UsuarioJpa();
 
-        usuarioJPA.setIdUsuario( usuarioRequest.getIdUsuario() );
-        usuarioJPA.setFolio( usuarioRequest.getFolioId() );
-        usuarioJPA.setNombre( usuarioRequest.getNombre() );
-        usuarioJPA.setApellidoPaterno( usuarioRequest.getApellidoPaterno() );
-        usuarioJPA.setApellidoMaterno( usuarioRequest.getApellidoMaterno() );
-        usuarioJPA.setFechaNacimiento(getFechaNacimiento(usuarioRequest.getFechaNacimiento()));
-        usuarioJPA.setUsername( usuarioRequest.getUsername() );
-        usuarioJPA.setEmail( usuarioRequest.getEmail() );
-        usuarioJPA.setPassword( usuarioRequest.getPassword() );
-        usuarioJPA.setStatus( usuarioRequest.getStatus() );
+        usuarioJpa.setIdUsuario(usuarioRequest.getIdUsuario());
+        usuarioJpa.setFolio(usuarioRequest.getFolioId());
+        usuarioJpa.setNombre(usuarioRequest.getNombre());
+        usuarioJpa.setApellidoPaterno(usuarioRequest.getApellidoPaterno());
+        usuarioJpa.setApellidoMaterno(usuarioRequest.getApellidoMaterno());
+        usuarioJpa.setFechaNacimiento(getFechaNacimiento(usuarioRequest.getFechaNacimiento()));
+        usuarioJpa.setUsername(usuarioRequest.getUsername());
+        usuarioJpa.setEmail(usuarioRequest.getEmail());
+        usuarioJpa.setPassword(usuarioRequest.getPassword());
+        usuarioJpa.setStatus(usuarioRequest.getStatus());
 
-        return usuarioJPA;
+        return usuarioJpa;
     }
     private static Date getFechaNacimiento(String fecha) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(ConstantesUtil.DATE_FORMAT);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(ConstantesUtils.DATE_FORMAT);
         return simpleDateFormat.parse(fecha);
     }
 
-    public static UsuarioMl toUsuarioML(UsuarioRequest usuarioRequest){
+    public static UsuarioMl toUsuarioMl(UsuarioDto usuarioRequest) {
         UsuarioMl usuarioML = new UsuarioMl();
 
         usuarioML.setIdUsuario(usuarioRequest.getIdUsuario());

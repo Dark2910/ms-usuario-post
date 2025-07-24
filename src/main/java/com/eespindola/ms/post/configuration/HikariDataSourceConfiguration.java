@@ -51,4 +51,5 @@ public class HikariDataSourceConfiguration {
     public JdbcTemplate jdbcTemplate(@Qualifier("hikariDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+
 }

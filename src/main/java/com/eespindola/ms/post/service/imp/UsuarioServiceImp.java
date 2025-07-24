@@ -5,9 +5,9 @@ import com.eespindola.ms.post.jpa.UsuarioRepository;
 import com.eespindola.ms.post.mapper.UsuarioMapper;
 import com.eespindola.ms.post.models.UsuarioMl;
 import com.eespindola.ms.post.models.dto.Result;
-import com.eespindola.ms.post.models.dto.UsuarioRequest;
+import com.eespindola.ms.post.models.dto.UsuarioDto;
 import com.eespindola.ms.post.service.UsuarioService;
-import com.eespindola.ms.post.utils.FolioUtil;
+import com.eespindola.ms.post.utils.FolioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,18 +29,19 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    public Result<Void> agregarUsuario(Result<UsuarioRequest> request) {
+    public Result<Void> agregarUsuario(Result<UsuarioDto> request) {
 
         Result<Void> response = new Result<>();
-        response.setFolioRequest(Objects.requireNonNullElse(request.getFolioRequest(), FolioUtil.createFolioRequest()));
+        response.setFolioRequest(Objects.requireNonNullElse(request.getFolioRequest(), FolioUtils.createFolioRequest()));
+
         try {
 //            UsuarioJPA usuarioJPA = UsuarioMapper.toUsuarioJPA(request.getObject());
 //            usuarioJPA.setFolio(FolioUtil.createFolioId());
 //
 //            usuarioRepository.save(usuarioJPA);
 
-            UsuarioMl usuarioML = UsuarioMapper.toUsuarioML(request.getObject());
-            usuarioML.setFolioId(FolioUtil.createFolioId());
+            UsuarioMl usuarioML = UsuarioMapper.toUsuarioMl(request.getObject());
+            usuarioML.setFolioId(FolioUtils.createFolioId());
 
             usuarioDAO.usuarioInsert(usuarioML);
 

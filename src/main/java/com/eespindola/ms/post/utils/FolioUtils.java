@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
-public class FolioUtil {
+public class FolioUtils {
 
     public static String createFolioRequest() {
         Random random = new Random();
